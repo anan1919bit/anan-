@@ -1,0 +1,102 @@
+<view class="shop-page">
+  <view class="hero-card">
+    <view class="hero-top">
+      <view class="hero-badge">SPRING CURATION</view>
+      <view class="hero-count">{{featuredCount}} 款精选好物</view>
+    </view>
+    <view class="hero-title">发现今天值得入手的生活灵感</view>
+    <view class="hero-desc">融合数码、家居与轻食美学，打造顺滑、轻盈、赏心悦目的选购体验。</view>
+    <view class="hero-metrics">
+      <view class="metric-item">
+        <view class="metric-value">4.9</view>
+        <view class="metric-label">综合口碑</view>
+      </view>
+      <view class="metric-item">
+        <view class="metric-value">24H</view>
+        <view class="metric-label">闪电发货</view>
+      </view>
+      <view class="metric-item">
+        <view class="metric-value">98%</view>
+        <view class="metric-label">回购推荐</view>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+    <view
+      wx:for="{{categories}}"
+      wx:key="id"
+      class="category-pill {{activeCategory === item.id ? 'category-pill-active' : ''}}"
+      data-id="{{item.id}}"
+      bindtap="switchCategory"
+    >
+      <view class="category-name">{{item.name}}</view>
+      <view class="category-desc">{{item.desc}}</view>
+    </view>
+  </scroll-view>
+
+  <view class="product-list">
+    <view
+      wx:for="{{products}}"
+      wx:key="id"
+      wx:if="{{item.categoryId === activeCategory}}"
+      class="product-card"
+      style="background: {{item.bg}};"
+    >
+      <view class="product-main">
+        <view class="product-cover" style="background: linear-gradient(160deg, {{item.color}} 0%, #ffffff 100%);">
+          <view class="cover-ring"></view>
+          <view class="cover-dot"></view>
+          <view class="cover-name">{{item.name}}</view>
+        </view>
+
+        <view class="product-content">
+          <view class="product-meta">
+            <view class="product-tag">{{item.tag}}</view>
+            <view class="product-rating">★ {{item.rating}}</view>
+          </view>
+
+          <view class="product-title">{{item.name}}</view>
+          <view class="product-desc">{{item.desc}}</view>
+
+          <view class="product-footer">
+            <view class="price-wrap">
+              <text class="price-symbol">¥</text>
+              <text class="price-value">{{item.price}}</text>
+            </view>
+
+            <view wx:if="{{item.cartCount === 0}}" class="buy-btn" data-id="{{item.id}}" bindtap="addToCart">
+              加入购物袋
+            </view>
+
+            <view wx:else class="stepper">
+              <view class="stepper-btn" data-id="{{item.id}}" bindtap="decreaseCount">－</view>
+              <view class="stepper-count">{{item.cartCount}}</view>
+              <view class="stepper-btn stepper-btn-primary" data-id="{{item.id}}" bindtap="increaseCount">＋</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bag-bar {{bagCount > 0 ? 'bag-bar-active' : ''}}">
+    <view class="bag-info">
+      <view class="bag-icon-wrap">
+        <view class="bag-icon">袋</view>
+        <view wx:if="{{bagCount > 0}}" class="bag-count">{{bagCount}}</view>
+      </view>
+      <view>
+        <view class="bag-title">购物袋</view>
+        <view class="bag-subtitle">已选 {{bagCount}} 件商品，合计 ¥{{bagTotalPrice}}</view>
+      </view>
+    </view>
+    <view class="checkout-btn {{bagCount === 0 ? 'checkout-btn-disabled' : ''}}">
+      去结算
+    </view>
+  </view>
+
+  <view wx:if="{{showAddedToast}}" class="toast">
+    已加入：{{addedProductName}}
+  </view>
+</view>

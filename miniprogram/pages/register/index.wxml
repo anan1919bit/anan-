@@ -1,0 +1,110 @@
+<view class="register-page">
+  <view class="register-card">
+    <view class="brand-row">
+      <view class="brand-icon">
+        <view class="brand-core"></view>
+      </view>
+      <view class="brand-name">{{brand}}</view>
+    </view>
+
+    <view class="mascot-section">
+      <view class="mascot mascot-{{mascotMood}}">
+        <view class="mascot-head">
+          <view class="mascot-hair"></view>
+          <view class="mascot-face">
+            <view class="mascot-eyes {{eyeState === 'closed' ? 'eyes-closed' : ''}} {{eyeState === 'cover' ? 'eyes-cover' : ''}}">
+              <view class="eye"></view>
+              <view class="eye"></view>
+              <view wx:if="{{eyeState === 'cover'}}" class="hand hand-left"></view>
+              <view wx:if="{{eyeState === 'cover'}}" class="hand hand-right"></view>
+            </view>
+            <view class="mascot-mouth {{mascotMood === 'happy' ? 'mouth-happy' : ''}}"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="title">创建账号</view>
+    <view class="subtitle">使用邮箱或手机号开始注册</view>
+
+    <view class="form-area">
+      <view class="field-label">昵称</view>
+      <view class="input-wrap {{currentField === 'nickname' ? 'input-wrap-active' : ''}}">
+        <input
+          class="field-input"
+          placeholder="请输入昵称"
+          placeholder-class="input-placeholder"
+          value="{{nickname}}"
+          data-field="nickname"
+          bindfocus="onFocusField"
+          bindblur="onBlurField"
+          bindinput="onInput"
+        />
+      </view>
+
+      <view class="field-label">邮箱</view>
+      <view class="input-wrap {{currentField === 'email' ? 'input-wrap-active' : ''}}">
+        <input
+          class="field-input"
+          placeholder="请输入邮箱"
+          placeholder-class="input-placeholder"
+          value="{{email}}"
+          data-field="email"
+          bindfocus="onFocusField"
+          bindblur="onBlurField"
+          bindinput="onInput"
+        />
+      </view>
+
+      <view class="divider-tip">或</view>
+
+      <view class="field-label">手机号</view>
+      <view class="input-wrap {{currentField === 'phone' ? 'input-wrap-active' : ''}}">
+        <input
+          class="field-input"
+          type="number"
+          placeholder="请输入手机号"
+          placeholder-class="input-placeholder"
+          value="{{phone}}"
+          data-field="phone"
+          bindfocus="onFocusField"
+          bindblur="onBlurField"
+          bindinput="onInput"
+        />
+      </view>
+
+      <view class="field-label">密码</view>
+      <view class="input-wrap input-password {{currentField === 'password' ? 'input-wrap-active' : ''}}">
+        <input
+          class="field-input"
+          placeholder="请输入密码"
+          placeholder-class="input-placeholder"
+          password="{{!showPassword}}"
+          value="{{password}}"
+          data-field="password"
+          bindfocus="onFocusField"
+          bindblur="onBlurField"
+          bindinput="onInput"
+        />
+        <view class="eye-toggle" bindtap="togglePassword">
+          <view class="toggle-eye {{showPassword ? 'toggle-eye-open' : ''}}"></view>
+        </view>
+      </view>
+
+      <view class="agreement-row">
+        <view class="agreement-left" bindtap="toggleAgree">
+          <view class="checkbox {{agreed ? 'checkbox-active' : ''}}">
+            <view wx:if="{{agreed}}" class="checkbox-dot"></view>
+          </view>
+          <view class="agreement-text">我已阅读并同意用户协议与隐私政策</view>
+        </view>
+      </view>
+
+      <button class="primary-btn" loading="{{isSubmitting}}" bindtap="submitRegister">
+        {{isSubmitting ? '正在创建账号...' : '创建账号'}}
+      </button>
+
+      <view class="footer-tip">已有账号？立即登录</view>
+    </view>
+  </view>
+</view>

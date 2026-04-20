@@ -1,0 +1,83 @@
+<view class="login-page">
+  <view class="login-card">
+    <view class="brand-row">
+      <view class="brand-icon">
+        <view class="brand-core"></view>
+      </view>
+      <view class="brand-name">{{brand}}</view>
+    </view>
+
+    <view class="mascot-section">
+      <view class="mascot mascot-{{mascotMood}}">
+        <view class="mascot-head">
+          <view class="mascot-hair"></view>
+          <view class="mascot-face">
+            <view class="mascot-eyes {{eyeState === 'closed' ? 'eyes-closed' : ''}} {{eyeState === 'cover' ? 'eyes-cover' : ''}}">
+              <view class="eye"></view>
+              <view class="eye"></view>
+              <view wx:if="{{eyeState === 'cover'}}" class="hand hand-left"></view>
+              <view wx:if="{{eyeState === 'cover'}}" class="hand hand-right"></view>
+            </view>
+            <view class="mascot-mouth {{mascotMood === 'happy' ? 'mouth-happy' : ''}}"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="title">登录 / 注册</view>
+    <view class="subtitle">优先使用邮箱或手机号登录，如未注册将引导你创建账号</view>
+
+    <view class="form-area">
+      <view class="field-label">邮箱或手机号</view>
+      <view class="input-wrap {{currentField === 'account' ? 'input-wrap-active' : ''}}">
+        <input
+          class="field-input"
+          placeholder="请输入邮箱或手机号"
+          placeholder-class="input-placeholder"
+          value="{{account}}"
+          data-field="account"
+          bindfocus="onFocusField"
+          bindblur="onBlurField"
+          bindinput="onInput"
+        />
+      </view>
+
+      <view class="field-label">密码</view>
+      <view class="input-wrap input-password {{currentField === 'password' ? 'input-wrap-active' : ''}}">
+        <input
+          class="field-input"
+          placeholder="请输入密码"
+          placeholder-class="input-placeholder"
+          password="{{!showPassword}}"
+          value="{{password}}"
+          data-field="password"
+          bindfocus="onFocusField"
+          bindblur="onBlurField"
+          bindinput="onInput"
+        />
+        <view class="eye-toggle" bindtap="togglePassword">
+          <view class="toggle-eye {{showPassword ? 'toggle-eye-open' : ''}}"></view>
+        </view>
+      </view>
+
+      <view class="action-row">
+        <view class="remember-wrap" bindtap="toggleRemember">
+          <view class="checkbox {{rememberLogin ? 'checkbox-active' : ''}}">
+            <view wx:if="{{rememberLogin}}" class="checkbox-dot"></view>
+          </view>
+          <view class="remember-text">记住登录状态</view>
+        </view>
+        <view class="forgot-text" bindtap="forgotPassword">忘记密码？</view>
+      </view>
+
+      <button class="primary-btn" loading="{{isSubmitting}}" bindtap="submitLogin">
+        {{isSubmitting ? '正在验证账号...' : '登录 / 注册'}}
+      </button>
+
+      <view class="footer-tip">
+        没有账号也不用担心，
+        <text class="footer-link" bindtap="goRegister">完善信息后即可创建</text>
+      </view>
+    </view>
+  </view>
+</view>

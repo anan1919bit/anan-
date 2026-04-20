@@ -1,0 +1,66 @@
+<view class="profile-page">
+  <view class="profile-hero">
+    <view class="hero-top">
+      <view class="user-main">
+        <view class="avatar">{{userInfo.avatarText}}</view>
+        <view class="user-meta">
+          <view class="nickname">{{userInfo.nickname}}</view>
+          <view class="level">{{userInfo.level}}</view>
+        </view>
+      </view>
+      <view class="login-btn" bindtap="goLogin">登录 / 切换账号</view>
+    </view>
+
+    <view class="stats-row">
+      <view wx:for="{{stats}}" wx:key="label" class="stat-card">
+        <view class="stat-value">{{item.value}}</view>
+        <view class="stat-label">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-card">
+    <view class="section-head">
+      <view class="section-title">我的订单</view>
+      <view class="section-more">查看全部</view>
+    </view>
+
+    <view class="order-grid">
+      <view
+        wx:for="{{orderTabs}}"
+        wx:key="key"
+        class="order-item"
+        data-label="{{item.label}}"
+        bindtap="handleOrderTap"
+      >
+        <view class="order-icon-wrap">
+          <view class="order-icon">{{item.icon}}</view>
+          <view wx:if="{{item.count > 0}}" class="order-count">{{item.count}}</view>
+        </view>
+        <view class="order-label">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-card">
+    <view class="section-head">
+      <view class="section-title">常用服务</view>
+    </view>
+
+    <view class="service-list">
+      <view
+        wx:for="{{services}}"
+        wx:key="key"
+        class="service-item"
+        data-title="{{item.title}}"
+        bindtap="handleServiceTap"
+      >
+        <view class="service-content">
+          <view class="service-title">{{item.title}}</view>
+          <view class="service-desc">{{item.desc}}</view>
+        </view>
+        <view class="service-arrow">›</view>
+      </view>
+    </view>
+  </view>
+</view>
